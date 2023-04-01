@@ -89,9 +89,9 @@ font-size: xx-large;\">\
         function joystick(width, height) {\
             ctx.beginPath();\
             ctx.arc(width, height, radius, 0, Math.PI * 2, true);\
-            ctx.fillStyle = '#F08080';\
+            ctx.fillStyle = '#7BD182';\
             ctx.fill();\
-            ctx.strokeStyle = '#F6ABAB';\
+            ctx.strokeStyle = '#40B549';\
             ctx.lineWidth = 8;\
             ctx.stroke();\
         }\
