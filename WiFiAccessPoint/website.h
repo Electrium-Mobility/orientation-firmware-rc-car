@@ -1,12 +1,12 @@
 const char* site = "<!DOCTYPE html>\
-<html>\
+<html style =\"overscroll-behavior: none;\">\
 <head>\
     <title>\
         RC Car Remote\
     </title>\
     <meta name=\"viewport\" content=\"user-scalable=no\">\
 </head>\
-<body  style=\"position: fixed; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;\
+<body  style=\"position: fixed; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ; overscroll-behavior: none;\
 color:rgb(128, 128, 128);\
 font-size: xx-large;\">\
     <h1 style=\"text-align:center\">\
@@ -136,6 +136,7 @@ font-size: xx-large;\">\
             document.getElementById('y_coordinate').innerText = 0;\
             document.getElementById(\"speed\").innerText = 0;\
             document.getElementById(\"angle\").innerText = 0;\
+            send(0, 0, 0, 0);\
 \
         }\
 \
