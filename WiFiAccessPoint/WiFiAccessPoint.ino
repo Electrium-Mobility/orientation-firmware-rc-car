@@ -1,13 +1,12 @@
 // ArduinoJson - Version: 6.14.1
 #include <ArduinoJson.h>
-
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <WebSocketsServer.h>
 #include <Servo.h>
-
 #include "website.h"
 
+// **************************** PIN AND VARIABLE DEFINITIONS **************************** //
 // --------------------------- TODO ---------------------------
 // Define which pins you want to use for the motor, you need at least 3 with motor driver
 #define MOTOR_IN1 5
@@ -21,19 +20,23 @@
 const char *ssid = "";
 const char *password = "";
 
-// Create Server instances
+// **************************** CREATE SERVER AND SERVO INSTANCES **************************** //
+// Create Server instance
 ESP8266WebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81); // Use port 81 for the WebSocket
 
-// Create Servo instances
+// Create Servo instance
 Servo steering_servo;
 
+// CALLED BY SETUP()
 // handle HTTP requests to the root path ("/") of the web server
 // http://192.168.4.1 is connected to this access point
 void handleRoot() {
   Serial.println("Connected!");
   server.send(200, "text/html", site);
 }
+
+// **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
 void run_motor(int y){
   if (y < 0){  // To run RC Car Forward
     y = map(y, -200, 0, -255, -102);
@@ -55,6 +58,8 @@ void run_motor(int y){
   }
   
 }
+
+// **************************** FUNCTION FOR TURNING MOTIONS **************************** //
 void steer(int x){
 //  --------------------------- TODO ---------------------------
 // Turn x which is a number between -200 to 200 into a nubmer between 0 to 180
@@ -95,6 +100,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
   }
 }
 
+// **************************** START SERVER AND HOST WIFI NETWORK **************************** //
 // called once when the ESP8266 is powered on or reset
 void setup() {
   delay(1000);
@@ -128,6 +134,7 @@ void setup() {
   webSocket.onEvent(webSocketEvent);
 }
 
+// **************************** LOOP TO CHECK FOR NEW USERS CONNECTING AND GETTING INSTRUCTIONS FROM REMOTE **************************** //
 void loop() {
   // Handle webserver requests on Arduino
   server.handleClient();
