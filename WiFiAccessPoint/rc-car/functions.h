@@ -1,9 +1,3 @@
-// **************************** THE BIGGER PICTURE AND WHAT WE NEED TO DO **************************** //
-
-// We need to finish writing two important functions:
-// run_motor, which is responsible for forwards and backwards motions
-
-
 // **************************** PIN AND VARIABLE DEFINITIONS **************************** //
 // --------------------------- TODO ---------------------------
 // We need to define which pins of the ESP8266 we want our motor driver's input pins to be connected to

@@ -1,4 +1,3 @@
-// ArduinoJson - Version: 6.14.1
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
@@ -7,30 +6,36 @@
 #include "website.h"
 #include "functions.h"
 
-// **************************** CREATE SERVER AND SERVO INSTANCES **************************** //
+// **************************** CREATE INSTANCES **************************** //
 // Create Server instance
-ESP8266WebServer server(80);
+ESP8266WebServer server(80); // Use port 80 for the web server
+
+// Create Websocket instance
 WebSocketsServer webSocket = WebSocketsServer(81); // Use port 81 for the WebSocket
 
 // Create Servo instance
 Servo steering_servo;
 
-// CALLED BY SETUP()
-// handle HTTP requests to the root path ("/") of the web server
+
+// **************************** HANDLE REQUESTS TO THE ROOT PATH OF THE WEB SERVER **************************** //
+// When a client connects to the server, the server sends the site content (in "website.h") to the client
 // http://192.168.4.1 is connected to this access point
 void handleRoot() {
   Serial.println("Connected!");
   server.send(200, "text/html", site);
 }
 
+
+// **************************** HANDLE WEBSOCKET EVENTS, SUCH AS CLIENT CONNECTION/DISCONNECTION, RECEIVING DATA, CALLING FUNCTIONS, ETC. **************************** //
 // handle websocket for real-time events
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
-  // Handle the event here
   switch(type) {
-    case WStype_DISCONNECTED: // Print message if client disconnects
+    // If client disconnects
+    case WStype_DISCONNECTED: 
       Serial1.printf("[%u] Disconnected!\n", num);
       break;
-    case WStype_CONNECTED: // Print message if client connects
+      // If client connects
+    case WStype_CONNECTED:
       {
         IPAddress ip = webSocket.remoteIP(num);
         Serial1.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
@@ -55,39 +60,44 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
   }
 }
 
+
 // **************************** START SERVER AND HOST WIFI NETWORK **************************** //
 // called once when the ESP8266 is powered on or reset
 void setup() {
   delay(1000);
+
   // Attach pin specified to Servo motor object
   steering_servo.attach(SERVO_PIN);
-  // Init analogWrites  
+
+  // Set the analogWrite range 
   analogWriteRange(255);
-  // Init pins
+
+  // Set pin modes
   pinMode(MOTOR_IN1, OUTPUT);
   pinMode(MOTOR_IN2, OUTPUT);
   pinMode(EN_PIN, OUTPUT);
 
-  // initialize the serial communication
+  // Initialize the serial communication
   Serial.begin(9600);
   Serial.println();
   Serial.print("Configuring access point...");
 
-  // set up the WiFi access point with the defined SSID and password
+  // Set up the WiFi access point with the defined SSID and password
   WiFi.softAP(ssid, password);
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
 
-  // set up the server to handle HTTP requests to the root path 
+  // Set up the server to handle HTTP requests to the root path 
   server.on("/", handleRoot);
 
-  // start web server
+  // Start web server
   server.begin();
-  Serial.println("HTTP server started");
+  Serial.println("HTTP server started!");
   webSocket.begin();
   webSocket.onEvent(webSocketEvent);
 }
+
 
 // **************************** LOOP TO CHECK FOR NEW USERS CONNECTING AND GETTING INSTRUCTIONS FROM REMOTE **************************** //
 void loop() {
@@ -95,3 +105,12 @@ void loop() {
   server.handleClient();
   webSocket.loop();
 }
+
+
+// HOW THE FUNCTIONS ARE CONNECTED
+// The setup() function is called once at the start of the program, and it sets up the wifi access point, server, and websocket
+// The loop() function is then called repeatedly to handle incoming HTTP requests and WebSocket events
+// When an HTTP request is received, the handleRoot() function is called to send the contents of website.h to the client
+// When a WebSocket event is received, the webSocketEvent() function is called to handle the event
+// The webSocketEvent() function deserializes a JSON message received from the client, extracts the values for the motor and servo control, and calls the run_motor() and steer() functions
+
