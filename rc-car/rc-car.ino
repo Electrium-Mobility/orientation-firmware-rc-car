@@ -17,6 +17,7 @@ Servo steering_servo;
 
 #include "functions.h"
 
+
 // **************************** HANDLE REQUESTS TO THE ROOT PATH OF THE WEB SERVER **************************** //
 // When a client connects to the server, the server sends the site content (in "website.h") to the client
 // http://192.168.4.1 is connected to this access point
@@ -105,12 +106,3 @@ void loop() {
   server.handleClient();
   webSocket.loop();
 }
-
-
-// HOW THE FUNCTIONS ARE CONNECTED
-// The setup() function is called once at the start of the program, and it sets up the wifi access point, server, and websocket
-// The loop() function is then called repeatedly to handle incoming HTTP requests and WebSocket events
-// When an HTTP request is received, the handleRoot() function is called to send the contents of website.h to the client
-// When a WebSocket event is received, the webSocketEvent() function is called to handle the event
-// The webSocketEvent() function deserializes a JSON message received from the client, extracts the values for the motor and servo control, and calls the run_motor() and steer() functions
-
