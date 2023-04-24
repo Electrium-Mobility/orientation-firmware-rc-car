@@ -6,9 +6,9 @@
 // This means that the pin we want IN1 to be defined by is the GPIO number beside D1, and the pin we want IN2 to be defined by is the GPIO number beside D2
 // The first definition has been made for you as an example! Now complete MOTOR_IN2 and EN_PIN
 // CHECK IF WE CAN DIRECTLY WRITE D1 AND D2
-#define MOTOR_IN1 5
-#define MOTOR_IN2 
-#define EN_PIN 
+#define MOTOR_IN1 0
+#define MOTOR_IN2 0
+#define EN_PIN 0
 
 // --------------------------- TODO ---------------------------
 // Similarly, we connected D8 on the ESP8266 with the PWM pin on the servo motor. This means that the pin we want PWM to be defined by is the GPIO number beside D8
@@ -17,8 +17,8 @@
 // --------------------------- TODO ---------------------------
 // Name your wifi network and password for your personal server (team name preferred!)
 // Note: make sure the password is at least 8 characters long
-const char *ssid = "";
-const char *password = "";
+const char *ssid = "Orientation-RC-Car";
+const char *password = "temp-password";
 
 
 // **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
@@ -37,8 +37,9 @@ void run_motor(int y){
   } 
   // backward motion
   else if (y > 0){ 
+    y = pow(abs(y) / 200, 0.5) * 200; // make the acceleration curve exponential instead of linear, so that there's more forward/reverse motion while turning
     y = map(y, 0, 200, 102, 255);
-    analogWrite(EN_PIN, abs(y));
+    analogWrite(EN_PIN, y);
 
     //  --------------------------- TODO ---------------------------
     // Do the same as above, but for reverse motion!
@@ -46,6 +47,9 @@ void run_motor(int y){
   } 
   // stationary
   else if (y == 0){
+    y = pow(abs(y) / 200, 0.5) * 200; // make the acceleration curve exponential instead of linear, so that there's more forward/reverse motion while turning
+    y = map(y, 0, 200, 102, 255);
+    analogWrite(EN_PIN, y);
     //  --------------------------- TODO ---------------------------
     // Do the same as above, but if we want our car to be stationary!
   }

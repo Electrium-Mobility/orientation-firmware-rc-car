@@ -4,7 +4,6 @@
 #include <WebSocketsServer.h>
 #include <Servo.h>
 #include "website.h"
-#include "functions.h"
 
 // **************************** CREATE INSTANCES **************************** //
 // Create Server instance
@@ -16,6 +15,7 @@ WebSocketsServer webSocket = WebSocketsServer(81); // Use port 81 for the WebSoc
 // Create Servo instance
 Servo steering_servo;
 
+#include "functions.h"
 
 // **************************** HANDLE REQUESTS TO THE ROOT PATH OF THE WEB SERVER **************************** //
 // When a client connects to the server, the server sends the site content (in "website.h") to the client
