@@ -178,8 +178,18 @@ font-size: xx-large;\">\
                 document.getElementById('y_coordinate').innerText =y_relative ;\
                 document.getElementById(\"speed\").innerText = speed;\
                 document.getElementById(\"angle\").innerText = angle_in_degrees;\
-\
-                send( x_relative,y_relative,speed,angle_in_degrees);\
+\               
+                var lastMessageSentTime = 0;\
+                var currentTime = Date.now();\
+                if (currentTime - lastMessageSentTime < 450) {\
+                  setTimeout(function() {\
+                    send( x_relative,y_relative,speed,angle_in_degrees);\
+                    lastMessageSentTime = Date.now();\
+                  }, 50 - (currentTime - lastMessageSentTime));\
+                } else {\
+                  send( x_relative,y_relative,speed,angle_in_degrees);\
+                  lastMessageSentTime = currentTime;\
+                }\
             }\
         } \
     </script>\

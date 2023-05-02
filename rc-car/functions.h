@@ -5,10 +5,10 @@
 // We know our D1 Mini Pro sends our motor driver instructions. This is done by connecting the pins on the D1 Mini Pro with the pins on the motor driver.
 // Replace the zeros below with the names of the pins on the D1 Mini Pro that we want our motor driver to receive signals from. For example, MOTOR_IN1 on the motor driver is connected to D1 on the D1 Mini Pro, so we would replace '0' with 'D1'.
 
-#define MOTOR_IN1 0 // *
-#define MOTOR_IN2 0 // *
-#define EN_PIN 0 // *
-#define SERVO_PIN 0 // *
+#define MOTOR_IN1 D1 // *
+#define MOTOR_IN2 D2// *
+#define EN_PIN D7 // *
+#define SERVO_PIN D8 // *
 
 
 // --------------------------- TODO #2: RENAME SSID AND PASSWORD ---------------------------
@@ -22,8 +22,8 @@ const char *password = "temp-password"; // *
 // **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
 void run_motor(int y){
   // FORWARD MOTION
+  y = abs(y);
   if (y < 0){ 
-    y = pow(abs(y) / 200, 0.5) * 200; // make the acceleration curve exponential instead of linear, so that there's more forward/reverse motion while turning
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
@@ -33,31 +33,32 @@ void run_motor(int y){
     // The syntax for setting the values of the pins is digitalWrite(pin, value); 
     // Where pin is the variable name of the pin we want to send the signals to
     // And value is either HIGH or LOW
-
+    digitalWrite(MOTOR_IN1, HIGH);
+    digitalWrite(MOTOR_IN2, LOW);
     // *
   } 
 
   // REVERSE MOTION
   else if (y > 0){ 
-    y = pow(abs(y) / 200, 0.5) * 200; // make the acceleration curve exponential instead of linear, so that there's more forward/reverse motion while turning
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
     //  --------------------------- TODO #5: SET THE SIGNALS FOR REVERSE MOTION ---------------------------
     // Do the same as above, but for reverse motion! 
-
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, HIGH);
     // *
   } 
   
   // STATIONARY
   else if (y == 0){
-    y = pow(abs(y) / 200, 0.5) * 200; // make the acceleration curve exponential instead of linear, so that there's more forward/reverse motion while turning
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
     //  --------------------------- TODO #6: SET THE SIGNALS FOR NO MOTION ---------------------------
     // Do the same as above, but if we want our car to be stationary!
-
+    digitalWrite(MOTOR_IN1, LOW);
+    digitalWrite(MOTOR_IN2, LOW);
     // *
   }
   
@@ -73,7 +74,7 @@ void steer(int x){
   // And lower range 2 and upper range 2 are the bounds of the new range we want to switch to
 
   // replace the zeroes with the correct values
-  x = map(x, 0, 0, 0, 0); // *
+  x = map(x, -200, 200, 0, 180); // *
 
   // Write the new value for number of degrees we calculated to the servo motor 
   steering_servo.write(x);

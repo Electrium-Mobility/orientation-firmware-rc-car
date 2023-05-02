@@ -4,7 +4,8 @@
 #include <WebSocketsServer.h>
 #include <Servo.h>
 #include "website.h"
-
+Servo steering_servo;
+#include "functions.h"
 // **************************** CREATE INSTANCES **************************** //
 // Create Server instance
 ESP8266WebServer server(80); // Use port 80 for the web server
@@ -13,9 +14,7 @@ ESP8266WebServer server(80); // Use port 80 for the web server
 WebSocketsServer webSocket = WebSocketsServer(81); // Use port 81 for the WebSocket
 
 // Create Servo instance
-Servo steering_servo;
 
-#include "functions.h"
 
 
 // **************************** HANDLE REQUESTS TO THE ROOT PATH OF THE WEB SERVER **************************** //
