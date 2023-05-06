@@ -5,8 +5,8 @@
 // We know our D1 Mini Pro sends our motor driver instructions. This is done by connecting the pins on the D1 Mini Pro with the pins on the motor driver.
 // Replace the zeros below with the names of the pins on the D1 Mini Pro that we want our motor driver to receive signals from. For example, MOTOR_IN1 on the motor driver is connected to D1 on the D1 Mini Pro, so we would replace '0' with 'D1'.
 
-#define MOTOR_IN1 D1 // *
-#define MOTOR_IN2 D2// *
+#define MOTOR_IN1 // :) complete this
+#define MOTOR_IN2 // :) complete this 
 #define EN_PIN D5 // *
 #define SERVO_PIN D8 // *
 
@@ -15,7 +15,7 @@
 // Rename the default wifi network name and password (the part inside the quotations) with your team name and custom password.
 // Note: make sure the password is at least 8 characters long.
 // You'll need to reconnect to the WiFi again after this.
-const char *ssid = "Orientation-RC-Car"; // *
+const char *ssid = "Orientation-RC-Car"; // change these later!
 const char *password = "temp-password"; // *
 
 
@@ -32,8 +32,7 @@ void run_motor(int y){
     // The syntax for setting the values of the pins is digitalWrite(pin, value); 
     // Where pin is the variable name of the pin we want to send the signals to
     // And value is either HIGH or LOW
-    digitalWrite(MOTOR_IN1, HIGH);
-    digitalWrite(MOTOR_IN2, LOW);
+
     // *
   } 
 
@@ -44,20 +43,16 @@ void run_motor(int y){
 
     //  --------------------------- TODO #5: SET THE SIGNALS FOR REVERSE MOTION ---------------------------
     // Do the same as above, but for reverse motion! 
-    digitalWrite(MOTOR_IN1, LOW);
-    digitalWrite(MOTOR_IN2, HIGH);
+
     // *
   } 
   
   // STATIONARY
   else if (y == 0){
-    y = map(y, 0, 200, 102, 255);
-    analogWrite(EN_PIN, y);
 
     //  --------------------------- TODO #6: SET THE SIGNALS FOR NO MOTION ---------------------------
     // Do the same as above, but if we want our car to be stationary!
-    digitalWrite(MOTOR_IN1, LOW);
-    digitalWrite(MOTOR_IN2, LOW);
+
     // *
   }
   
@@ -73,7 +68,7 @@ void steer(int x){
   // And lower range 2 and upper range 2 are the bounds of the new range we want to switch to
 
   // replace the zeroes with the correct values
-  x = map(x, -200, 200, 0, 180); // *
+  x = map(x, 0, 0, 0); // *
 
   // Write the new value for number of degrees we calculated to the servo motor 
   steering_servo.write(x);
