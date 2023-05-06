@@ -22,7 +22,7 @@ const char *password = "temp-password"; // *
 // **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
 void run_motor(int y){
   // FORWARD MOTION
-  y = abs(y);
+ 
   if (y < 0){ 
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
@@ -39,7 +39,8 @@ void run_motor(int y){
   } 
 
   // REVERSE MOTION
-  else if (y > 0){ 
+  else if (y > 0){
+     y = abs(y); 
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
