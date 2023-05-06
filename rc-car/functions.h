@@ -24,6 +24,7 @@ void run_motor(int y){
   // FORWARD MOTION
  
   if (y < 0){ 
+    y = abs(y);
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
@@ -40,7 +41,6 @@ void run_motor(int y){
 
   // REVERSE MOTION
   else if (y > 0){
-     y = abs(y); 
     y = map(y, 0, 200, 102, 255);
     analogWrite(EN_PIN, y);
 
