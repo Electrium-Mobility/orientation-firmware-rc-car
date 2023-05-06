@@ -1,3 +1,10 @@
+// HOW THE FUNCTIONS ARE CONNECTED
+// The setup() function is called once at the start of the program, and it sets up the wifi access point, server, and websocket
+// The loop() function is then called repeatedly to handle incoming HTTP requests and WebSocket events
+// When an HTTP request is received, the handleRoot() function is called to send the contents of website.h to the client
+// When a WebSocket event is received, the webSocketEvent() function is called to handle the event
+// The webSocketEvent() function deserializes a JSON message received from the client, extracts the values for the motor and servo control, and calls the run_motor() and steer() functions
+
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
@@ -14,6 +21,7 @@ ESP8266WebServer server(80); // Use port 80 for the web server
 WebSocketsServer webSocket = WebSocketsServer(81); // Use port 81 for the WebSocket
 
 // Create Servo instance
+
 
 
 
