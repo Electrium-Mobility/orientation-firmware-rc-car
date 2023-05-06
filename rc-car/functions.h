@@ -7,7 +7,7 @@
 
 #define MOTOR_IN1 D1 // *
 #define MOTOR_IN2 D2// *
-#define EN_PIN D7 // *
+#define EN_PIN D5 // *
 #define SERVO_PIN D8 // *
 
 
@@ -22,11 +22,9 @@ const char *password = "temp-password"; // *
 // **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
 void run_motor(int y){
   // FORWARD MOTION
- 
   if (y < 0){ 
-    y = abs(y);
-    y = map(y, 0, 200, 102, 255);
-    analogWrite(EN_PIN, y);
+    y = map(y, -200, 0, 102, 255);
+    analogWrite(EN_PIN, abs(y));
 
     //  --------------------------- TODO #4: SET THE SIGNALS FOR FORWARD MOTION ---------------------------
     // We want to give the MOTOR_IN1 and MOTOR_IN2 pins the signals they need in order to go forwards
@@ -40,9 +38,9 @@ void run_motor(int y){
   } 
 
   // REVERSE MOTION
-  else if (y > 0){
+  else if (y > 0){ 
     y = map(y, 0, 200, 102, 255);
-    analogWrite(EN_PIN, y);
+    analogWrite(EN_PIN, abs(y));
 
     //  --------------------------- TODO #5: SET THE SIGNALS FOR REVERSE MOTION ---------------------------
     // Do the same as above, but for reverse motion! 
