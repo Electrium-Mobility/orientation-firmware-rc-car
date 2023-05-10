@@ -7,16 +7,16 @@
 
 #define MOTOR_IN1 // :) complete this
 #define MOTOR_IN2 // :) complete this 
-#define EN_PIN D5 // *
-#define SERVO_PIN D8 // *
+#define EN_PIN // :) complete this
+#define SERVO_PIN // :) complete this 
 
 
 // --------------------------- TODO #2: RENAME SSID AND PASSWORD ---------------------------
 // Rename the default wifi network name and password (the part inside the quotations) with your team name and custom password.
 // Note: make sure the password is at least 8 characters long.
 // You'll need to reconnect to the WiFi again after this.
-const char *ssid = "Orientation-RC-Car"; // change these later!
-const char *password = "temp-password"; // *
+const char *ssid = ""; // change these later!
+const char *password = ""; // *
 
 
 // **************************** FUNCTION FOR FORWARD AND BACKWARD MOTIONS **************************** //
