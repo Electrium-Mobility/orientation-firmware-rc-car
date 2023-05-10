@@ -3,12 +3,13 @@
 // **************************** PIN AND VARIABLE DEFINITIONS **************************** //
 // --------------------------- TODO #1: DEFINE PINS ON MOTOR DRIVER ---------------------------
 // We know our D1 Mini Pro sends our motor driver instructions. This is done by connecting the pins on the D1 Mini Pro with the pins on the motor driver.
-// Replace the zeros below with the names of the pins on the D1 Mini Pro that we want our motor driver to receive signals from. For example, MOTOR_IN1 on the motor driver is connected to D1 on the D1 Mini Pro, so we would replace '0' with 'D1'.
+// Replace the D0s below with the names of the pins on the D1 Mini Pro that we want our motor driver to receive signals from. 
+// For example, MOTOR_IN1 on the motor driver is connected to D1 on the D1 Mini Pro, so we would replace 'D0' with 'D1'.
 
-#define MOTOR_IN1 // :) complete this
-#define MOTOR_IN2 // :) complete this 
-#define EN_PIN // :) complete this
-#define SERVO_PIN // :) complete this 
+#define MOTOR_IN1 D0 // :) complete this
+#define MOTOR_IN2 D0 // :) complete this 
+#define EN_PIN D0 // :) complete this
+#define SERVO_PIN D0 // :) complete this 
 
 
 // --------------------------- TODO #2: RENAME SSID AND PASSWORD ---------------------------
