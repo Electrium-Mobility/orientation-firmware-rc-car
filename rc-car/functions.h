@@ -6,17 +6,17 @@
 // Replace the D0s below with the names of the pins on the D1 Mini Pro that we want our motor driver to receive signals from. 
 // For example, MOTOR_IN1 on the motor driver is connected to D1 on the D1 Mini Pro, so we would replace 'D0' with 'D1'.
 
-#define MOTOR_IN1 D0 // :) complete this
-#define MOTOR_IN2 D0 // :) complete this 
-#define EN_PIN D0 // :) complete this
-#define SERVO_PIN D0 // :) complete this 
+#define MOTOR_IN1 D1 // Done as an example
+#define MOTOR_IN2 D0 // * 
+#define EN_PIN D0 // *
+#define SERVO_PIN D0 // *
 
 
 // --------------------------- TODO #2: RENAME SSID AND PASSWORD ---------------------------
 // Rename the default wifi network name and password (the part inside the quotations) with your team name and custom password.
 // Note: make sure the password is at least 8 characters long.
 // You'll need to reconnect to the WiFi again after this.
-const char *ssid = ""; // change these later!
+const char *ssid = ""; // *
 const char *password = ""; // *
 
 
@@ -24,8 +24,9 @@ const char *password = ""; // *
 void run_motor(int y){
   // FORWARD MOTION
   if (y < 0){ 
-    y = map(y, -200, 0, 102, 255);
-    analogWrite(EN_PIN, abs(y));
+    y = abs(y);
+    y = map(y, 0, 200, 102, 255);
+    analogWrite(EN_PIN, y);
 
     //  --------------------------- TODO #4: SET THE SIGNALS FOR FORWARD MOTION ---------------------------
     // We want to give the MOTOR_IN1 and MOTOR_IN2 pins the signals they need in order to go forwards
