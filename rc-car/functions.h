@@ -23,6 +23,7 @@ const char *password = "temp-password"; // *
 void run_motor(int y){
   // FORWARD MOTION
   if (y < 0){ 
+    y = abs(y);
     y = map(y, -200, 0, 102, 255);
     analogWrite(EN_PIN, abs(y));
 
