@@ -70,7 +70,7 @@ void steer(int x){
   // And lower range 2 and upper range 2 are the bounds of the new range we want to switch to
 
   // replace the zeroes with the correct values
-  x = map(x, 0, 0, 0); // *
+  x = map(x, 0, 0, 0, 0); // *
 
   // Write the new value for number of degrees we calculated to the servo motor 
   steering_servo.write(x);
